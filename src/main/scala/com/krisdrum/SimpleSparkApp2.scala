@@ -7,11 +7,14 @@ object SimpleSparkApp2 extends App {
         val inputFile = args(0)
         val outputFolder = args(1)
 
-        val conf = new SparkConf().setMaster("local").setAppName("SimpleSparkApp1")
+        val conf = new SparkConf()
+          .setMaster("local")
+          .setAppName("SimpleSparkApp1")
         val sc = new SparkContext(conf)
+
         def wordSplit(string: String) = string.split("""\W+""")
 
-        val input = sc.textFile(inputFile)
+        val input: RDD[String] = sc.textFile(inputFile)
 
         val wordCount: RDD[(String, Int)] = input
           .flatMap(wordSplit)
