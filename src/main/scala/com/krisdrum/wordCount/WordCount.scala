@@ -6,7 +6,7 @@ import org.apache.spark.{SparkConf, SparkContext}
 object WordCount extends App{
   val conf = new SparkConf().setMaster("local").setAppName(getClass.getSimpleName)
   val sc = new SparkContext(conf)
-  val lines = sc.textFile("src/main/resources/vulgata.txt")
+  val lines = sc.textFile(input)
 
   val result = lines
     .flatMap(_.split(" "))
