@@ -1,4 +1,4 @@
-package com.krisdrum.commonTransformationsAndActions
+package com.krisdrum.keyedValuePairs.commonTransformationsAndActions
 
 import org.apache.spark.{SparkConf, SparkContext}
 
