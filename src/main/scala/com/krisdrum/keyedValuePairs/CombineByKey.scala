@@ -16,8 +16,7 @@ object CombineByKey extends App {
 
   val wilmaAndFredScores = sc.parallelize(initialScores).cache
 
-  val createScoreCombiner = (score: Double) =>
-    ScoreCollector(1, score)
+  val mergeCombiners = (score: Double) => ScoreCollector(1, score)
 
   val scoreCombiner = (col: ScoreCollector, score: Double) =>
     ScoreCollector(col.noOfScores + 1,  col.sumOfScores + score)
@@ -26,9 +25,8 @@ object CombineByKey extends App {
     col1.copy(col1.noOfScores + col2.noOfScores, col2.sumOfScores + col2.sumOfScores)
 
   val scores: RDD[(String, ScoreCollector)] = wilmaAndFredScores.combineByKey(
-    createScoreCombiner,
+    mergeCombiners,
     scoreCombiner,
     scoreMerger
   )
-
 }
